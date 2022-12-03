@@ -5,13 +5,15 @@ import send from "koa-send";
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import axios from 'axios';
+import http from 'http';
 import json from "koa-json";
 import bodyParser from "koa-bodyparser";
 import logger from "koa-logger";
 import { Server } from "socket.io";
 const router = new r();
+const server = http.createServer(app.callback());
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const io = new Server(app);
+const io = new Server(server);
 let bag = [
     {
         name: "Bow",
@@ -88,6 +90,12 @@ app.use(router.allowedMethods());
 io.on('connection', (socket) => {
     console.log('a user connected');
 });
-app.listen(port, () => {
-    console.log("Server started!");
-});
+const HOST = 'localhost';
+const HTTP_PORT = 3000;
+const httpServer = http.createServer(app.callback())
+    .listen(HTTP_PORT, HOST, listeningReporter);
+function listeningReporter() {
+    // `this` refers to the http server here
+    const { address, port } = this.address();
+    console.log(`Listening on http://${address}:${port}...`);
+}

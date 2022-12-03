@@ -19,7 +19,7 @@ const server = http.createServer(app.callback())
   
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const io = new Server(app)
+const io = new Server(server)
 
 type ItemRequest = {
   name: string,
@@ -114,8 +114,15 @@ io.on('connection', (socket) => {
   console.log('a user connected');
 });
 
-app.listen(port , () => {
-  console.log("Server started!")
-})
+const HOST = 'localhost';
+const HTTP_PORT = 3000;
+
+const httpServer = http.createServer(app.callback())
+  .listen(HTTP_PORT, HOST, listeningReporter)
+function listeningReporter () {
+  // `this` refers to the http server here
+  const { address, port } = this.address();
+  console.log(`Listening on http://${address}:${port}...`);
+}
 
 export {}
