@@ -1,0 +1,41 @@
+<html lang="en-US">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		
+		<title>Koa on Replit</title>
+		<meta
+			name="description"
+			content="Create a Koa.js Webserver with as little setup as possible on Replit."
+		/>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Italiana&display=swap"
+			type="text/css"
+		/>
+
+    <script>
+  // This is our recommended way of loading WebAssembly.
+(async () => {
+  const fetchPromise = fetch('https://northseaapi.razorshnegax.repl.co/wasm');
+  const { instance } = await WebAssembly.instantiateStreaming(fetchPromise);
+  const result = instance.exports.add(23 , 4);
+  console.log(result);
+  document.getElementById("boo").text = result
+})();
+    </script>
+
+	</head>
+	<body>
+		<div class="container">
+			<div>
+				<h1>Koa on Replit</h1>
+				<div class="subtitle" id="boo">Quickstart your backend development with a preset Koa.js environment.</div>
+			</div>
+		</div>
+	</body>
+</html>
